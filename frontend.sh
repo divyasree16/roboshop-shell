@@ -7,3 +7,4 @@ systemctl enable nginx
 systemctl start nginx
 
 ##roboshop config is not copied because the servers are not ready
+
