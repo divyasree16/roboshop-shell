@@ -10,7 +10,7 @@ print_head "Creating Roboshop user"
 useradd roboshop &>>{log_file}
 
 print_head "Create application directory"
-mkdir /app &>>${log_file}
+mkdir /app &>>{log_file}
 
 print_head "Delete old content"
 rm -rf /app/* &>>{log_file}
