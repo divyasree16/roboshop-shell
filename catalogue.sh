@@ -1,21 +1,49 @@
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-yum install nodejs -y
+source common.sh
+
+print_head "configure NodeJS Repo"
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>{log_file}
+
+print_head "Install NodeJS"
+yum install nodejs -y &>>{log_file}
+
+print_head "Creating Roboshop user"
 useradd roboshop
-mkdir /app
-rm -rf /app/*
-curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
+
+print_head "Create application directory"
+mkdir /app &>>${log_file}
+
+print_head "Delete old content"
+rm -rf /app/* &>>{log_file}
+
+print_head "Downloading app content"
+curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip &>>{log_file}
 cd /app
-unzip /tmp/catalogue.zip
+
+print_head "Extracting App content"
+unzip /tmp/catalogue.zip &>>{log_file}
 cd /app
-npm install
-cp configs/catalogue.service /etc/systemd/system/catalogue.service
 
-systemctl daemon-reload
-systemctl enable catalogue
-systemctl start catalogue
+print_head "Installing NodeJS Dependencies"
+npm install &>>{log_file}
 
+print_head "Copy SystemD Service File"
+cp configs/catalogue.service /etc/systemd/system/catalogue.service &>>{log_file}
 
-cp configs/mongodb.rep /etc/yum.repos.d/mongo.repo
-yum install mongodb-org-shell -y
-mongo --host mongodb-dev.devops161997.online </app/schema/catalogue.js
+print_head "Reload systemD"
+systemctl daemon-reload &>>{log_file}
+
+print_head "Enable catalogue service"
+systemctl enable catalogue &>>{log_file}
+
+print_head "Strat Ctalogue Service"
+systemctl start catalogue &>>{log_file}
+
+print_head "Copy MongoDB Repo file"
+cp configs/mongodb.rep /etc/yum.repos.d/mongo.repo &>>{log_file}
+
+print_head "Install Mongo Client"
+yum install mongodb-org-shell -y &>>{log_file}
+
+print_head "Load schema"
+mongo --host mongodb-dev.devops161997.online </app/schema/catalogue.js &>>{log_file}
 
