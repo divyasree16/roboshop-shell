@@ -9,10 +9,8 @@ print_head "Install NodeJS"
 yum install nodejs -y &>>${log_file}
 status_check $?
 
-
-print_head "Create Roboshop User"
+print_head "Create Roboshop user"
 useradd roboshop &>>${log_file}
-status_check $?
 
 
 print_head "Create Application Directory"
@@ -63,7 +61,6 @@ status_check $?
 print_head "Imstall Mongo Client"
 yum install mongodb-org-shell -y &>>${log_file}
 status_check $?
-
 
 print_head "Load Schema"
 mongo --host mongodb-dev.devops161997.online </app/schema/catalogue.js &>>${log_file}
