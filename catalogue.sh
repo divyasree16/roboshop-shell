@@ -15,7 +15,6 @@ useradd roboshop &>>${log_file}
 
 print_head "Create Application Directory"
 mkdir /app &>>${log_file}
-status_check $?
 
 
 print_head "Delete old content"
