@@ -28,7 +28,7 @@ cp ${code_dir}/configs/catalogue.service /etc/systemd/system/catalogue.service &
 print_head "Reload SystemD"
 systemctl daemon-reload &>>${log_file}
 
-print_head" Enable Catalogue service"
+print_head "Enable Catalogue service"
 systemctl enable catalogue &>>${log_file}
 
 print_head "Start Catalogue service"
