@@ -27,7 +27,6 @@ print_head "Extracting App Content"
 unzip /tmp/catalogue.zip &>>${log_file}
 status_check $?
 
-
 print_head "Installing NoseJS Dependencies"
 npm install &>>${log_file}
 status_check $?
